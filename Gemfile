@@ -3,10 +3,12 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.12'
 gem 'thin'
 
-gem 'bcrypt-ruby'
+gem 'bcrypt'
 
 gem 'pg'
 gem 'jquery-rails'
+
+gem 'pry'
 
 group :development do
   gem 'quiet_assets'
