@@ -5,6 +5,7 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <script src="//cdn.jsdelivr.net/bootstrap.paginator/0.6.0/bootstrap-paginator.min.js"></script>
 </head>
 <body>
   <div class="navbar navbar-inverse navbar-fixed-top">
@@ -19,8 +20,49 @@
       </div>
     </div>
   </div>
+
+<!--  <div class="pagination">
+  <ul>
+    <li class="disabled"><a href="#">Prev</a></li>
+    <li class="active"><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li><a href="#">Next</a></li>
+  </ul>
+</div> -->
+<div id="example"></div>
+<div id="alert-content"></div>
   <div class="container">
     <%= yield %>
   </div>
 </body>
+<script type='text/javascript'>
+  var a = $(location).attr('href').substr(28,3);
+  // alert(a.substr(28,2));
+  console.log("This is the url: " + window.location.pathname);
+  if ( a === '') {
+    a = 1
+    alert(a)
+  };
+        var options = {
+            currentPage: a,
+            totalPages: 100,
+            pageUrl: function(type, page, current){
+              // console.log(this);
+              // console.log(currentPage);
+                currentPage: current;
+                return "?page="+page;
+            },
+            itemContainerClass: function (type, page, current) {
+                return (page === current) ? "active" : "pointer-cursor";
+            }
+            // onPageChanged: function(e,oldPage,newPage){
+            //   console.log($('#alert-content').text("Current page changed, old: "+oldPage+" new: "+newPage));
+            // }
+        }
+
+        $('#example').bootstrapPaginator(options);
+</script>
 </html>

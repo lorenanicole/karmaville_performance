@@ -1,3 +1,4 @@
+require 'pry'
 require 'spec_helper'
 
 describe User do
@@ -48,4 +49,45 @@ describe User do
       user.full_name.should eq 'John Doe'
     end
   end
+
+  describe '#page' do
+
+    before do
+      stub_const("User::USERS_PER_PAGE", 2)
+    end
+
+    it 'returns the corresponding data for page 1' do
+      user_med   = create(:user_with_karma, :total => 500, :points => 2)
+      user_low   = create(:user_with_karma, :total => 200, :points => 2)
+      user_high  = create(:user_with_karma, :total => 800, :points => 2)
+      User.page("1").should eq [user_low]
+    end
+
+    it 'returns the corresponding data for page 0 when no page number is specified' do
+      user_med   = create(:user_with_karma, :total => 500, :points => 2)
+      user_low   = create(:user_with_karma, :total => 200, :points => 2)
+      user_high  = create(:user_with_karma, :total => 800, :points => 2)
+      User.page("").should eq [user_high, user_med]
+    end
+  end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
